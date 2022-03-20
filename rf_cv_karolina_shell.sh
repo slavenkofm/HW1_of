@@ -10,4 +10,4 @@ pwd
 module load R
 echo "loaded R"
 
-time Rscript rf_cv_mc.r 16
+time Rscript rf_cv_mc.R 16
