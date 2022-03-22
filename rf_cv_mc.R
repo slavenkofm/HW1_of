@@ -46,8 +46,10 @@ pred = do.call(c, cpred)
 correct = sum(pred == test$lettr)
 
 mtry = mtry_val[which.min(err)]
+
 rf.all = randomForest(lettr ~ ., train, ntree = ntree, mtry = mtry)
-pred_cv = predict(rf.all, test)
+cv_pred = mclapply(crows, rfp, mc.cores = nc)
+pred_cv = do.call(c, cv_pred)
 correct_cv = sum(pred_cv == test$lettr)
 cat("Proportion Correct: ", correct/n_test, "(mtry = ", floor((ncol(test) - 1)/3),
     ") with cv:", correct_cv/n_test, "(mtry = ", mtry, ")\n", sep = "")
